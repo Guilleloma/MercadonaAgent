@@ -1,0 +1,16 @@
+README.md
+pyproject.toml
+src/mercadona_agent/__init__.py
+src/mercadona_agent/config.py
+src/mercadona_agent.egg-info/PKG-INFO
+src/mercadona_agent.egg-info/SOURCES.txt
+src/mercadona_agent.egg-info/dependency_links.txt
+src/mercadona_agent.egg-info/entry_points.txt
+src/mercadona_agent.egg-info/requires.txt
+src/mercadona_agent.egg-info/top_level.txt
+src/mercadona_agent/adapters/persistence/json_repo.py
+src/mercadona_agent/application/services.py
+src/mercadona_agent/domain/models.py
+src/mercadona_agent/ports/persistence.py
+src/mercadona_agent/ui/cli.py
+tests/test_shopping_list.py

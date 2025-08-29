@@ -1,0 +1,4 @@
+leche entera,1,ud,despensa
+manzana,2,kg,frescos
+huevos
+arroz,1,kg,despensa

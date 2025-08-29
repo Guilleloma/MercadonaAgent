@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "name": "leche entera",
+      "quantity": 3.0,
+      "unit": "ud",
+      "category": "despensa",
+      "notes": null
+    },
+    {
+      "name": "manzana",
+      "quantity": 3.0,
+      "unit": "kg",
+      "category": "frescos",
+      "notes": null
+    },
+    {
+      "name": "huevos",
+      "quantity": 1.0,
+      "unit": "ud",
+      "category": null,
+      "notes": null
+    },
+    {
+      "name": "arroz",
+      "quantity": 1.0,
+      "unit": "kg",
+      "category": "despensa",
+      "notes": null
+    }
+  ]
+}
