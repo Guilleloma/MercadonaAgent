@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mercadona-agent"
+version = "0.1.0"
+description = "Agente para generar lista de la compra e integrar con Mercadona"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "MercadonaAgent Team" }]
+dependencies = [
+  "typer[all]>=0.12",
+  "pydantic>=2.7",
+  "python-dotenv>=1.0",
+  "rich>=13.7",
+  "requests>=2.32",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2",
+  "pytest-cov>=5.0",
+]
+
+[project.scripts]
+mercadona-agent = "mercadona_agent.ui.cli:app"
+
+[tool.pytest.ini_options]
+addopts = "-q"
+pythonpath = ["src"]
+
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 100
+
+[tool.coverage.run]
+source = ["src/mercadona_agent"]

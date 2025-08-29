@@ -1,3 +1,19 @@
+Metadata-Version: 2.4
+Name: mercadona-agent
+Version: 0.1.0
+Summary: Agente para generar lista de la compra e integrar con Mercadona
+Author: MercadonaAgent Team
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: typer[all]>=0.12
+Requires-Dist: pydantic>=2.7
+Requires-Dist: python-dotenv>=1.0
+Requires-Dist: rich>=13.7
+Requires-Dist: requests>=2.32
+Provides-Extra: dev
+Requires-Dist: pytest>=8.2; extra == "dev"
+Requires-Dist: pytest-cov>=5.0; extra == "dev"
+
 # MercadonaAgent
 
 Agente para generar menú semanal y lista de la compra y preparar el carrito en Mercadona de forma ágil e incremental.
