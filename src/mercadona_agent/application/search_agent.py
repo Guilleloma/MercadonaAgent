@@ -21,8 +21,8 @@ class SearchAgentService:
                 best = self.search_port.search_best(name=it.name, quantity=it.quantity, unit=it.unit)
                 if best:
                     url_str = str(best.url)
-                    # Only persist URLs that point to a product detail page
-                    if "/product/" in url_str:
+                    # Persist URLs that point to Mercadona domain (product or search)
+                    if url_str.startswith("https://tienda.mercadona.es/"):
                         it.product_url = url_str
                         if it.notes:
                             # keep existing notes, append
