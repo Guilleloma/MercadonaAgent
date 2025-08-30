@@ -23,3 +23,9 @@ build/
 # Coverage/Reports
 coverage/
 *.log
+
+# App data (sensitive/heavy)
+data/screens/
+data/trace.zip
+data/playwright_state.json
+data/last_cart_results.json
