@@ -1,0 +1,36 @@
+{
+  "ts": "2025-08-30T17:23:02",
+  "results": [
+    {
+      "url": "https://tienda.mercadona.es/product/2787/filetes-pechuga-pollo-bandeja",
+      "status": "error",
+      "message": "No se encontró botón 'Añadir'",
+      "screenshot": "data/screens/20250830-172239_no_add_btn.png",
+      "html": "data/screens/20250830-172240_no_add_btn.html"
+    },
+    {
+      "url": "https://tienda.mercadona.es/product/69122/lechuga-corazon-romana-paquete",
+      "status": "added",
+      "message": "OK",
+      "screenshot": null,
+      "html": null,
+      "counter_before": -1,
+      "net_ok": false,
+      "counter_after": 1
+    },
+    {
+      "url": "https://tienda.mercadona.es/product/69912/tomate-pera-pieza",
+      "status": "added",
+      "message": "OK",
+      "screenshot": null,
+      "html": null,
+      "counter_before": -1,
+      "net_ok": false,
+      "counter_after": 1
+    }
+  ],
+  "summary": {
+    "added": 2,
+    "errors": 1
+  }
+}

@@ -10,7 +10,6 @@ from rich.table import Table
 from mercadona_agent.application.services import ListService
 from mercadona_agent.domain.models import Item
 from mercadona_agent.adapters.persistence.json_repo import JSONShoppingListRepository
-from mercadona_agent.application.importers import parse_lines
 from pydantic import ValidationError
 
 app = typer.Typer(help="Mercadona Agent CLI - Iteración I1 (generador de lista)")
@@ -69,33 +68,7 @@ def import_json(path: str = typer.Argument("data/shopping_list.json")):
     console.print(f"[green]Importado desde {path}[/green]")
 
 
-@app.command("bulk-import")
-def bulk_import(
-    path: str = typer.Argument(..., help="Ruta a archivo .txt o .csv con items"),
-    delimiter: str = typer.Option(",", "--delim", help="Delimitador si CSV"),
-    has_header: bool = typer.Option(False, "--header", help="Indica si la primera línea es cabecera"),
-):
-    """Importa múltiples ítems desde un archivo.
-
-    Formatos admitidos por línea:
-    - name,quantity,unit,category
-    - name;quantity;unit;category (usar --delim ";")
-    - name  (defaults: qty=1, unit=ud, category=None)
-    """
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-        items = parse_lines(lines, delimiter=delimiter, has_header=has_header)
-    except FileNotFoundError:
-        console.print(f"[red]Archivo no encontrado:[/red] {path}")
-        raise typer.Exit(code=1)
-    except ValidationError as e:
-        console.print(f"[red]Error de validación:[/red] {e}")
-        raise typer.Exit(code=1)
-
-    service.add_items(items, deduplicate=True)
-    repo.save(service.current)
-    console.print(f"[green]Importados {len(items)} ítems y guardado[/green]")
+    
 
 
 if __name__ == "__main__":

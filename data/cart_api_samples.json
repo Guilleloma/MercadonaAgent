@@ -1,0 +1,47 @@
+[
+  {
+    "method": "POST",
+    "url": "https://tienda.mercadona.es/api/carts/?lang=es&wh=vlc1",
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": "{\"id\":\"6e47d661-839e-4283-8534-511876bd5c8f\",\"lines\":[{\"quantity\":1,\"version\":2,\"product_id\":\"16004\",\"sources\":[\"+SA\"]}]}"
+  },
+  {
+    "method": "POST",
+    "url": "https://tienda.mercadona.es/api/carts/?lang=es&wh=vlc1",
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": "{\"id\":\"6e47d661-839e-4283-8534-511876bd5c8f\",\"lines\":[{\"quantity\":1,\"version\":2,\"product_id\":\"16004\",\"sources\":[\"+SA\"]}]}"
+  },
+  {
+    "method": "POST",
+    "url": "https://tienda.mercadona.es/api/carts/?lang=es&wh=vlc1",
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": "{\"id\":\"6e47d661-839e-4283-8534-511876bd5c8f\",\"lines\":[{\"quantity\":1,\"version\":2,\"product_id\":\"16004\",\"sources\":[\"+SA\"]}]}"
+  },
+  {
+    "method": "POST",
+    "url": "https://tienda.mercadona.es/api/carts/?lang=es&wh=vlc1",
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": "{\"id\":\"6e47d661-839e-4283-8534-511876bd5c8f\",\"lines\":[{\"quantity\":1,\"version\":2,\"product_id\":\"16004\",\"sources\":[\"+SA\"]}]}"
+  },
+  {
+    "method": "POST",
+    "url": "https://tienda.mercadona.es/api/carts/?lang=es&wh=vlc1",
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": "{\"id\":\"6e47d661-839e-4283-8534-511876bd5c8f\",\"lines\":[{\"quantity\":1,\"version\":2,\"product_id\":\"16004\",\"sources\":[\"+SA\"]}]}"
+  }
+]

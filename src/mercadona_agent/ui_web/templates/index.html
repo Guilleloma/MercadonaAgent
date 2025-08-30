@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MercadonaAgent Web</title>
+  <style>
+    :root { --bg: #0f172a; --fg: #e2e8f0; --muted:#94a3b8; --acc:#22c55e; --err:#ef4444; }
+    body { background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif; margin: 0; padding: 0; }
+    .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    header { display:flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    h1 { font-size: 1.4rem; margin: 0; }
+    .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1rem; margin-bottom: 1rem; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 0.5rem 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.08); text-align: left; }
+    th { color: var(--muted); font-weight: 600; font-size: 0.9rem; }
+    .cat { color: var(--muted); font-weight: 600; margin-top: .75rem; }
+    .rowcat { background: rgba(255,255,255,0.03); }
+    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    label { display:block; font-size: .9rem; color: var(--muted); margin-bottom: .25rem; }
+    input[type="text"], input[type="number"], select { width: 100%; padding: .55rem .6rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: var(--fg); }
+    input[type="file"] { color: var(--muted); }
+    .actions { display:flex; gap: .5rem; align-items: center; }
+    button { background: var(--acc); color: #052e12; border: none; padding: .55rem .8rem; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .muted { color: var(--muted); font-size: .9rem; }
+    .msg { color: var(--acc); font-weight: 600; }
+    .err { color: var(--err); font-weight: 600; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: .85rem; }
+    .help { display:inline-block; width:16px; height:16px; border-radius:50%; background: rgba(255,255,255,0.12); color: var(--muted); text-align:center; font-weight:700; font-size:12px; line-height:16px; cursor: help; margin-left:.25rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>MercadonaAgent Web</h1>
+      <div class="muted">I1 · Lista de la compra · <a href="/menu" style="color:#e2e8f0">Menú semanal →</a>
+        <form method="post" action="/search-products" style="display:inline;margin-left:.6rem">
+          <button type="submit">Buscar en Mercadona</button>
+        </form>
+        <form method="post" action="/clear" style="display:inline;margin-left:.6rem">
+          <button type="submit" style="background:#ef4444;color:#1b0a0a">Vaciar lista</button>
+        </form>
+      </div>
+    </header>
+
+    {% if msg %}<div class="card msg">{{ msg }}</div>{% endif %}
+    {% if err %}<div class="card err">{{ err }}</div>{% endif %}
+
+    <div class="card">
+      <h2 style="margin-top:0">Lista</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Unidad</th>
+            <th>Producto</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cat, items in grouped.items() %}
+            {% for it in items %}
+              <tr class="rowcat">
+                <td>{{ cat }}</td>
+                <td>{{ it.name }}</td>
+                <td>{{ '%.2f'|format(it.quantity) }}</td>
+                <td>{{ it.unit }}</td>
+                <td>{% if it.product_url %}<a href="{{ it.product_url }}" target="_blank" rel="noopener">Abrir</a>{% else %}<span class="muted">—</span>{% endif %}</td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr><td colspan="5" class="muted">No hay ítems todavía.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3 style="margin-top:0">Añadir ítem</h3>
+        <form method="post" action="/add">
+          <label>Nombre</label>
+          <input type="text" name="name" placeholder="p.ej. leche entera" required />
+          <div class="grid" style="grid-template-columns: 1fr 1fr;">
+            <div>
+              <label>Cantidad</label>
+              <input type="number" step="0.01" min="0.01" name="quantity" value="1" />
+            </div>
+            <div>
+              <label>Unidad</label>
+              <select name="unit">
+                <option value="ud">ud</option>
+                <option value="kg">kg</option>
+                <option value="g">g</option>
+                <option value="l">l</option>
+                <option value="ml">ml</option>
+                <option value="pack">pack</option>
+              </select>
+            </div>
+          </div>
+          <label>Categoría (opcional)</label>
+          <input type="text" name="category" placeholder="despensa, frescos..." />
+          <div class="actions" style="margin-top:.5rem">
+            <button type="submit">Añadir</button>
+            <span class="muted">Se consolidan duplicados automáticamente</span>
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">URLs de productos Mercadona</h3>
+        <p class="muted">Pega URLs como:<br>
+          <code>https://tienda.mercadona.es/product/69912/tomate-pera-pieza</code><br>
+          <code>https://tienda.mercadona.es/product/69122/lechuga-corazon-romana-paquete</code><br>
+          <code>https://tienda.mercadona.es/product/2787/filetes-pechuga-pollo-bandeja</code>
+        </p>
+        <form method="post" action="/map-urls">
+          <label>URLs (una por línea)</label>
+          <textarea name="urls_text" rows="6" style="width:100%;padding:.55rem .6rem;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background: rgba(255,255,255,0.06);color: var(--fg);"></textarea>
+          <div class="actions" style="margin-top:.5rem">
+            <button type="submit">Mapear a ítems</button>
+          </div>
+        </form>
+        <form method="post" action="/cart/add-by-urls" style="margin-top:.5rem">
+          <input type="hidden" name="urls_text" value="" />
+          <div class="actions" style="flex-wrap:wrap; align-items:flex-end; gap:.75rem">
+            <!-- Grupo: Tiempo y ventana -->
+            <div style="display:flex; gap:.5rem; align-items:center; flex-wrap:wrap">
+              <div>
+                <input id="opt_slow_mo_ms" type="number" min="0" step="1" name="slow_mo_ms" placeholder="slow_mo ms" style="max-width:150px" title="Retrasa cada acción de Playwright (ms). Útil para ver paso a paso." />
+              </div>
+              <div>
+                <input id="opt_keep_open_s" type="number" min="0" step="1" name="keep_open_s" placeholder="keep-open s (0 = indef.)" style="max-width:180px" title="Mantiene la ventana abierta N segundos al terminar. 0 = indefinido (espera hasta que la cierres)." />
+              </div>
+              <label for="opt_keep_open_forever" style="display:inline-flex;align-items:center;gap:.25rem" title="Mantiene la ventana abierta indefinidamente y la ejecución sigue en segundo plano.">
+                <input id="opt_keep_open_forever" type="checkbox" name="keep_open_forever" /> Mantener abierto al terminar <span class="help" title="Devolverá a la página al instante y dejará la ventana abierta hasta que la cierres.">i</span>
+              </label>
+            </div>
+
+            <!-- Grupo: Estrategia de añadido -->
+            <div style="display:flex; gap:.75rem; align-items:center; flex-wrap:wrap">
+              <label for="opt_api_first" style="display:inline-flex;align-items:center;gap:.25rem" title="Intenta usar la llamada interna de carrito antes que la UI (más rápido).">
+                <input id="opt_api_first" type="checkbox" name="api_first" /> API-first <span class="help" title="Si falla, hace clic en ‘Añadir’ en la página del producto.">i</span>
+              </label>
+              <label for="opt_clear_cart" style="display:inline-flex;align-items:center;gap:.25rem" title="Vacía el carrito al inicio para verificar los añadidos con fiabilidad.">
+                <input id="opt_clear_cart" type="checkbox" name="clear_cart" /> Vaciar carrito antes <span class="help" title="Recomendado para pruebas: evita confusiones con productos previos.">i</span>
+              </label>
+            </div>
+
+            <!-- Acción principal -->
+            <div style="display:flex; gap:.5rem; align-items:center; flex-wrap:wrap">
+              <button type="submit" title="Añade los productos. Si no has pegado URLs, usará las URLs mapeadas en los ítems.">Añadir al carro (auto)</button>
+              <span class="muted" title="Si el textarea está vacío, se usarán las product_url guardadas en tus ítems.">Si vacío, usará URLs mapeadas en los ítems.</span>
+              <a href="/cart/last-results.json" target="_blank" rel="noopener" class="muted" title="Resumen JSON del último run (éxitos/errores)." style="text-decoration:underline">Ver últimos resultados</a>
+            </div>
+          </div>
+        </form>
+        <form method="post" action="/cart/setup-session" style="margin-top:.5rem">
+          <div class="actions">
+            <input type="number" min="0" step="1" name="keep_seconds" placeholder="Segundos ventana" style="max-width:150px" title="Mantiene la ventana abierta al configurar sesión. 0 = indefinido (ciérrala manualmente)." />
+            <button type="submit">Configurar sesión (CP/Login)</button>
+          </div>
+          <div class="muted" style="margin-top:.25rem">Abre Mercadona para completar inicio de sesión y/o código postal una sola vez. Se guardará en <code>data/playwright_state.json</code>.</div>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      Basado en los servicios y modelos de <code>mercadona_agent</code>. Iteración I1.
+    </footer>
+  </div>
+</body>
+</html>

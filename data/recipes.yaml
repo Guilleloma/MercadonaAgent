@@ -1,0 +1,35 @@
+# Dataset inicial de recetas (I2)
+recipes:
+  - name: Ensalada de pollo
+    servings: 2
+    ingredients:
+      - name: pechuga de pollo
+        quantity: 300
+        unit: g
+      - name: lechuga
+        quantity: 1
+        unit: ud
+      - name: tomate
+        quantity: 2
+        unit: ud
+  - name: Pasta con tomate
+    servings: 2
+    ingredients:
+      - name: pasta seca
+        quantity: 200
+        unit: g
+      - name: salsa de tomate
+        quantity: 300
+        unit: g
+      - name: queso rallado
+        quantity: 50
+        unit: g
+  - name: Tortilla francesa
+    servings: 1
+    ingredients:
+      - name: huevos
+        quantity: 2
+        unit: ud
+      - name: aceite de oliva
+        quantity: 10
+        unit: ml

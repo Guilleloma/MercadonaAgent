@@ -12,6 +12,8 @@ class Item(BaseModel):
     unit: str = Field(default="ud")  # ud, kg, g, l, ml, pack, etc.
     category: Optional[str] = None  # frescos, despensa, bebidas, limpieza, etc.
     notes: Optional[str] = None
+    product_url: Optional[str] = None  # enlace a producto/resultado Mercadona
+    product_id: Optional[int] = None  # ID de producto Mercadona
 
     @field_validator("unit")
     @classmethod

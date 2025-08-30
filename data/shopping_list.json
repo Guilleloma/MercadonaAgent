@@ -1,32 +1,31 @@
 {
   "items": [
     {
-      "name": "leche entera",
-      "quantity": 3.0,
-      "unit": "ud",
-      "category": "despensa",
-      "notes": null
+      "name": "pechuga de pollo",
+      "quantity": 300.0,
+      "unit": "g",
+      "category": null,
+      "notes": "mercadona | mercadona | mercadona | mercadona | mercadona | mercadona | mercadona",
+      "product_url": "https://tienda.mercadona.es/product/2787/filetes-pechuga-pollo-bandeja",
+      "product_id": 2787
     },
     {
-      "name": "manzana",
-      "quantity": 3.0,
-      "unit": "kg",
-      "category": "frescos",
-      "notes": null
-    },
-    {
-      "name": "huevos",
+      "name": "lechuga",
       "quantity": 1.0,
       "unit": "ud",
       "category": null,
-      "notes": null
+      "notes": "mercadona | mercadona | mercadona | mercadona | mercadona | mercadona | mercadona",
+      "product_url": "https://tienda.mercadona.es/product/69122/lechuga-corazon-romana-paquete",
+      "product_id": 69122
     },
     {
-      "name": "arroz",
-      "quantity": 1.0,
-      "unit": "kg",
-      "category": "despensa",
-      "notes": null
+      "name": "tomate",
+      "quantity": 2.0,
+      "unit": "ud",
+      "category": null,
+      "notes": "mercadona | mercadona | mercadona | mercadona | mercadona | mercadona | mercadona",
+      "product_url": "https://tienda.mercadona.es/product/69912/tomate-pera-pieza",
+      "product_id": 69912
     }
   ]
 }

@@ -20,5 +20,8 @@ class Settings:
     http_timeout_ms: int = int(os.getenv("HTTP_TIMEOUT_MS", "10000"))
     retry_max: int = int(os.getenv("RETRY_MAX", "3"))
 
+    # AI providers
+    openai_api_key: str | None = os.getenv("OPENAI_API_KEY")
+
 
 settings = Settings()

@@ -17,6 +17,10 @@ class ListService:
     def current(self) -> ShoppingList:
         return self._list
 
+    def clear(self) -> None:
+        """Reset current shopping list."""
+        self._list = ShoppingList()
+
     def add_items(self, items: Iterable[Item], deduplicate: bool = True) -> None:
         for item in items:
             self._list.add_item(item)

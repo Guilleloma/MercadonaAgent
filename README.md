@@ -72,6 +72,35 @@ mercadona-agent show
 pytest -q
 ```
 
+5) UI web (opcional)
+
+Para usar la UI web con automatización del carrito (Playwright):
+
+1. Instala navegadores de Playwright una vez (si no lo hiciste):
+   ```
+   playwright install chromium
+   ```
+2. Lanza la web:
+   ```
+   mercadona-agent-web
+   # o: uvicorn mercadona_agent.ui_web.app:app --host 127.0.0.1 --port 8000
+   ```
+3. En la home:
+   - Usa “Configurar sesión (CP/Login)” para guardar estado (cookies/CP/login) en `data/playwright_state.json`.
+   - Puedes mapear URLs de producto a ítems, o pegar URLs directamente al añadir.
+   - En “Añadir al carro (auto)”, opciones y controles:
+     - API-first: intenta añadir vía API interna antes del click en UI (si hay `product_id`).
+     - Vaciar carrito antes: intenta vaciar el carrito antes de añadir.
+     - Slow Mo (ms): retrasa acciones del navegador para depuración/fiabilidad.
+     - Segundos ventana: tiempo que la ventana permanece abierta al finalizar (<= 0 = indefinido si no es headless).
+     - Mantener abierto indefinidamente: deja el navegador abierto hasta cierre manual; la traza se guarda antes de esperar.
+   - Resultados y evidencias:
+     - `data/last_cart_results.json` (detalle por URL)
+     - `data/screens/` (capturas y HTML en caso de fallo)
+     - `data/trace.zip` (traza Playwright)
+
+Variables útiles en `.env` (ya definidas en `.env.example`): `MRC_POSTAL_CODE`, `MRC_AUTOMATION_HEADLESS`, `MRC_AUTOMATION_KEEP_OPEN_SECONDS`, `MRC_AUTOMATION_SLOW_MO_MS`, `MRC_AUTOMATION_STORAGE`.
+
 ## CI/CD
 - Ver prácticas y estrategia en `docs/CI-CD.md`.
 - Workflows activos: `/.github/workflows/ci.yml` (tests en PR y pushes a master).

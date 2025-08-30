@@ -1,2 +1,3 @@
 [console_scripts]
 mercadona-agent = mercadona_agent.ui.cli:app
+mercadona-agent-web = mercadona_agent.ui_web.app:run
